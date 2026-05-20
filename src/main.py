@@ -5,7 +5,7 @@ from routes.dict_routes import dict_routes
 from routes.routes import HOME, LOGIN
 
 def main(page: ft.Page):
-    page.title = "Routes Example"
+    page.title = "Croche Love"
 
     print("Initial route:", page.route)
 
