@@ -36,46 +36,15 @@ class Home_view:
                 )
             ),
             controls=[
-                ft.Column(
+                ft.GridView(
                     expand=True,
-                    spacing=20,
-                    alignment=ft.MainAxisAlignment.CENTER,
-                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                    max_extent=300,  # tamanho de cada card
+                    spacing=10,
+                    run_spacing=10,
                     controls=[
-                        ft.Row(
-                            spacing=20,
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            controls=[
-                                Product(self.page, "Pano de cozinha").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Cachecol").build(),
-                            ]
-                        ),
-                        ft.Row(
-                            spacing=20,
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            controls=[
-                                Product(self.page, "Bolsa").build(),
-                                Product(self.page, "Saia de praia").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Rede pet").build(),
-                            ]
-                        ),
-                        ft.Row(
-                            spacing=20,
-                            alignment=ft.MainAxisAlignment.CENTER,
-                            controls=[
-                                Product(self.page, "Pano de prato").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Cachecol").build(),
-                                Product(self.page, "Kit amor de mãe").build(),
-                                Product(self.page, "Cachecol").build(),
-                            ]
-                        )
-                    ]
+                        Product(self.page, name, path).build()
+                        for name, path in self.page.data.dict_products.items()
+                    ],
                 )
             ],
         )

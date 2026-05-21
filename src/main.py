@@ -3,6 +3,8 @@ import flet as ft
 # Importando as rotas #
 from routes.dict_routes import dict_routes
 from routes.routes import HOME, LOGIN
+from models.app import App_data
+from services.database_manager import get_app_data
 
 def main(page: ft.Page):
     page.title = "Croche Love"
@@ -20,6 +22,10 @@ def main(page: ft.Page):
     page.theme = ft.Theme(
         font_family="Montserrat"
     )
+
+    app : App_data = get_app_data()
+
+    page.data = app
 
     print("Initial route:", page.route)
 

@@ -1,15 +1,16 @@
 import flet as ft
 
 class Product:
-    def __init__(self, page : ft.Page, name : str):
+    def __init__(self, page : ft.Page, name : str, path : str):
         self.page = page
         self.name = name
+        self.path = path
         pass
 
     def build(self):
         return ft.Container(
             height=300,
-            width=200,
+            width=300,
             bgcolor="#8c53b3",
             border_radius=10,
             shadow=ft.BoxShadow(
@@ -22,11 +23,10 @@ class Product:
                     # Line 1 - Image
                     ft.Container(
                         height=200,
-                        width=200,
+                        width=300,
                         content=ft.Image(
-                            src="products_images/bolsa.png",
-                            height=200,
-                            fit=ft.BoxFit.COVER,
+                            src=self.path,
+                            fit=ft.BoxFit.FIT_WIDTH,
                         ), 
                     ),                 
 
