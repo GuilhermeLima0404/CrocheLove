@@ -5,6 +5,7 @@
     "Tapete": "products_images/tapete.png"
   },
   "dict_routes": {
-    "/": "Home_view"
+    "/": "Home_view",
+    "/admin" : "Admin"
   }
 }

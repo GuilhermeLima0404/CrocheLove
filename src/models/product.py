@@ -1,10 +1,11 @@
 import flet as ft
 
 class Product:
-    def __init__(self, page : ft.Page, name : str, path : str):
+    def __init__(self, page : ft.Page, name : str, path : str, adm_mode : bool = False):
         self.page = page
         self.name = name
         self.path = path
+        self.adm_mode = adm_mode
         pass
 
     def build(self):

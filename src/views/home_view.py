@@ -1,14 +1,16 @@
 import flet as ft
-from routes.routes import HOME, LOGIN
+from routes.routes import HOME, ADMIN
 from models.product import Product
+from viewmodels.home_viewmodel import Home_viewmodel
 
 class Home_view:
-    def __init__(self, page : ft.Page):
+    def __init__(self, page : ft.Page, vm : Home_viewmodel):
         self.page = page
+        self.vm = vm
     pass
     
-    #async def go_to_login(self, e):
-    #    await self.page.push_route(LOGIN)
+    async def go_to_adm_view(self, e):
+        await self.page.push_route(ADMIN)
     
     def build(self):
         return ft.View(
@@ -31,6 +33,7 @@ class Home_view:
                         ft.Button(
                             content=ft.Text(value="Adiministrador"),
                             align=ft.Alignment.CENTER,
+                            on_click=self.go_to_adm_view,
                         ),
                     ],
                 )

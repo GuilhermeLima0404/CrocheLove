@@ -1,10 +1,30 @@
+# Arquivo main.py #
 import flet as ft
 
 # Importando as rotas #
 from routes.dict_routes import dict_routes
-from routes.routes import HOME, LOGIN
+from routes.routes import HOME
+
+# Importando os viewmodels #
+from viewmodels.home_viewmodel import Home_viewmodel
+from viewmodels.adm_viewmodel import Adm_viewmodel  
+
+# Importando os models #
 from models.app import App_data
+
+# Importando os serviços #
 from services.database_manager import get_app_data
+
+
+
+def get_view(route : str, pg : ft.Page) -> ft.View:
+    view_class, vm_class = dict_routes.get(route)
+
+    vm = vm_class()
+    view = view_class(pg, vm)
+
+    return view
+
 
 def main(page: ft.Page):
     page.title = "Croche Love"
@@ -23,8 +43,8 @@ def main(page: ft.Page):
         font_family="Montserrat"
     )
 
+    # Lendo as infos do app
     app : App_data = get_app_data()
-
     page.data = app
 
     print("Initial route:", page.route)
@@ -34,11 +54,13 @@ def main(page: ft.Page):
         page.views.clear()
 
         # Adicionando Home page
-        page.views.append(dict_routes.get(HOME)(page).build())
+        view = get_view(HOME, page)
+        page.views.append(view.build())
 
         # Adicionando a nova route
         if page.route != HOME:
-            page.views.append(dict_routes.get(page.route)(page).build())
+            view = get_view(page.route, page)
+            page.views.append(view.build())
         
         page.update()
 
@@ -53,7 +75,6 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
 
     route_change()
-
 
 if __name__ == "__main__":
     ft.run(main, assets_dir="assets")
