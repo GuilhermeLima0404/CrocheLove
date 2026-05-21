@@ -13,36 +13,66 @@ class Home_view:
     def build(self):
         return ft.View(
             route=HOME,
+            scroll=ft.ScrollMode.AUTO,
+            bgcolor=ft.Colors.WHITE,
             appbar=ft.AppBar(
+                bgcolor="#4cc9f0",
+                elevation=0,
                 title=ft.Row(
+                    expand=True,
+                    alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
                     controls=[
-                        ft.Text("Loja Croche Love", align=ft.Alignment.CENTER_LEFT),
+                        ft.Image(
+                            align=ft.Alignment.CENTER,
+                            src="crochelovelogo_horiz.png",
+                            height=50,  
+                            fit=ft.BoxFit.CONTAIN,
+                        ),                        
                         ft.Button(
-                            content=ft.Text(value="Area Adiministrador"),
-                            align=ft.Alignment.CENTER_RIGHT,
+                            content=ft.Text(value="Adiministrador"),
+                            align=ft.Alignment.CENTER,
                         ),
-                        ft.Image(src="assets/icon.png", width=100, height=100),
                     ],
                 )
-                
             ),
             controls=[
-                ft.Text("Catálogo de produtos", align=ft.Alignment.TOP_CENTER, size=50),
                 ft.Column(
+                    expand=True,
+                    spacing=20,
+                    alignment=ft.MainAxisAlignment.CENTER,
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
                         ft.Row(
+                            spacing=20,
+                            alignment=ft.MainAxisAlignment.CENTER,
                             controls=[
-                                Product(self.page, "Cachecol").build()
+                                Product(self.page, "Pano de cozinha").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Cachecol").build(),
                             ]
                         ),
                         ft.Row(
+                            spacing=20,
+                            alignment=ft.MainAxisAlignment.CENTER,
                             controls=[
-                                Product(self.page, "Bolsa").build()
+                                Product(self.page, "Bolsa").build(),
+                                Product(self.page, "Saia de praia").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Rede pet").build(),
                             ]
                         ),
                         ft.Row(
+                            spacing=20,
+                            alignment=ft.MainAxisAlignment.CENTER,
                             controls=[
-                                Product(self.page, "Pano de prato").build()
+                                Product(self.page, "Pano de prato").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Cachecol").build(),
+                                Product(self.page, "Kit amor de mãe").build(),
+                                Product(self.page, "Cachecol").build(),
                             ]
                         )
                     ]

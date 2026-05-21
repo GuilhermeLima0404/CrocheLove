@@ -8,22 +8,44 @@ class Product:
 
     def build(self):
         return ft.Container(
-            height=200,
+            height=300,
             width=200,
-            bgcolor=ft.Colors.PURPLE_400,
+            bgcolor="#8c53b3",
+            border_radius=10,
+            shadow=ft.BoxShadow(
+                blur_radius=25,
+                color=ft.Colors.BLACK_38,
+                offset=ft.Offset(0, 8),
+            ),
             content=ft.Column(
                 controls=[
-                    # Line 1
+                    # Line 1 - Image
+                    ft.Container(
+                        height=200,
+                        width=200,
+                        content=ft.Image(
+                            src="products_images/bolsa.png",
+                            height=200,
+                            fit=ft.BoxFit.COVER,
+                        ), 
+                    ),                 
+
+                    # Line 2 - Nome do produto
                     ft.Row(
+                        alignment=ft.MainAxisAlignment.CENTER,
                         expand=True,
                         controls=[
-                            ft.Text(value=self.name),
-                            ft.IconButton(icon=ft.Icons.REMOVE_CIRCLE),
+                            ft.Text(
+                                value=self.name,
+                                font_family="Tangerine",
+                                width=200,
+                                max_lines=1,
+                                overflow=ft.TextOverflow.ELLIPSIS,
+                                size=40,
+                                text_align=ft.TextAlign.CENTER,
+                            ),
                         ],
                     ),
-
-                    # Line 2 - Image Slider
-
                 ],
             )
         )

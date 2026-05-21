@@ -7,6 +7,20 @@ from routes.routes import HOME, LOGIN
 def main(page: ft.Page):
     page.title = "Croche Love"
 
+    # Configurando o diretório de assets para a pasta "assets"
+    page.assets_dir = "assets"
+
+    # Registrando o nome da fonte
+    page.fonts = {
+        "Tangerine": "fonts/Tangerine-Regular.ttf",
+        "Montserrat": "fonts/Montserrat-Regular.ttf",
+    }
+
+    # Configurando o thema da aplicação
+    page.theme = ft.Theme(
+        font_family="Montserrat"
+    )
+
     print("Initial route:", page.route)
 
     def route_change():
@@ -36,4 +50,4 @@ def main(page: ft.Page):
 
 
 if __name__ == "__main__":
-    ft.run(main)
+    ft.run(main, assets_dir="assets")
