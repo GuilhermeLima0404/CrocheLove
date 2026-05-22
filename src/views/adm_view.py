@@ -1,5 +1,5 @@
 import flet as ft
-from routes.routes import ADMIN
+from routes.routes import ADMIN, ADD_PRODUCT
 from models.product import Product
 from viewmodels.adm_viewmodel import Adm_viewmodel
 
@@ -7,7 +7,11 @@ class Adm_view:
     def __init__(self, page : ft.Page, vm : Adm_viewmodel):
         self.page = page
         self.vm = vm
-    pass
+        pass
+
+    async def go_to_add_product(self):
+        await self.page.push_route(ADD_PRODUCT)
+        pass
 
     def build(self):
         return ft.View(
@@ -62,7 +66,7 @@ class Adm_view:
                             ),
                             content=ft.IconButton(
                                 icon=ft.Icons.ADD,
-                                on_click=self.vm.add_product,
+                                on_click=self.go_to_add_product,
                             )
                         ),
                     ],

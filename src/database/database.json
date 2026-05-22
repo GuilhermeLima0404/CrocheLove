@@ -1,5 +1,5 @@
 {
-  "dict_products": {
+  "dict_products_path": {
     "Bolsa": "products_images/bolsa.png",
     "Pano de prato": "products_images/panodeprato.png",
     "Tapete": "products_images/tapete.png"

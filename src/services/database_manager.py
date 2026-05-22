@@ -46,7 +46,7 @@ def get_app_data():
             data = json.load(f)
 
         app_data = App_data()
-        app_data.dict_products = data.get("dict_products", {})
+        app_data.dict_products = data.get("dict_products_path", {})
         app_data.dict_routes = data.get("dict_routes", {})
 
         print(app_data.dict_products)
