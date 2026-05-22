@@ -1,17 +1,26 @@
+from unicodedata import name
+
 import flet as ft
-from routes.routes import ADMIN, ADD_PRODUCT
+from routes.routes import HOME, ADMIN, ADD_PRODUCT, REFRESH
 from models.product import Product
 from viewmodels.adm_viewmodel import Adm_viewmodel
+
 
 class Adm_view:
     def __init__(self, page : ft.Page, vm : Adm_viewmodel):
         self.page = page
         self.vm = vm
-        pass
+    pass
+
+    async def remove_product(self, name):
+        print(f"Remover produto: {name}")
+        self.vm.remove_product(name)
+        await self.page.push_route(REFRESH)
+    pass
 
     async def go_to_add_product(self):
         await self.page.push_route(ADD_PRODUCT)
-        pass
+    pass
 
     def build(self):
         return ft.View(
@@ -48,8 +57,8 @@ class Adm_view:
                     run_spacing=10,
                     controls=[
                         # Grid View dos produtos
-                        Product(self.page, name, path).build()
-                        for name, path in self.page.data.dict_products.items()
+                        Product(self.page, name, path, adm_mode=True, delete_callback=self.remove_product).build()
+                        for name, path in self.page.data.dict_products_path.items()
                     ]
                     +
                     [

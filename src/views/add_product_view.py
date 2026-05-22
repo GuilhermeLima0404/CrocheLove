@@ -32,6 +32,9 @@ class Add_product_view:
         )
     pass
 
+    def get_app_data(self):
+        return self.page.data
+
     def build(self):
         return ft.View(
             route=ADD_PRODUCT,

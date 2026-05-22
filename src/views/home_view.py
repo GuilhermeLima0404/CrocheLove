@@ -45,8 +45,8 @@ class Home_view:
                     spacing=10,
                     run_spacing=10,
                     controls=[
-                        Product(self.page, name, path).build()
-                        for name, path in self.page.data.dict_products.items()
+                        Product(self.page, name, path, adm_mode=False).build()
+                        for name, path in self.page.data.dict_products_path.items()
                     ],
                 )
             ],

@@ -3,7 +3,7 @@ import flet as ft
 
 # Importando as rotas #
 from routes.dict_routes import dict_routes
-from routes.routes import HOME
+from routes.routes import ADMIN, HOME, REFRESH
 
 # Importando os viewmodels #
 from viewmodels.home_viewmodel import Home_viewmodel
@@ -15,16 +15,14 @@ from models.app import App_data
 # Importando os serviços #
 from services.database_manager import get_app_data
 
-
-
+# Construtor de views
 def get_view(route : str, pg : ft.Page) -> ft.View:
     view_class, vm_class = dict_routes.get(route)
 
-    vm = vm_class()
+    vm = vm_class(pg.data)
     view = view_class(pg, vm)
 
     return view
-
 
 def main(page: ft.Page):
     page.title = "Croche Love"
@@ -59,8 +57,14 @@ def main(page: ft.Page):
 
         # Adicionando a nova route
         if page.route != HOME:
-            view = get_view(page.route, page)
-            page.views.append(view.build())
+            if page.route == REFRESH:
+                page.data = get_app_data()
+                view = get_view(ADMIN, page)
+                page.views.append(view.build())
+            else:
+                page.data = get_app_data()
+                view = get_view(page.route, page)
+                page.views.append(view.build())
         
         page.update()
 
