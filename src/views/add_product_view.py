@@ -1,3 +1,5 @@
+import asyncio
+
 import flet as ft
 
 from routes.routes import ADD_PRODUCT, ADMIN
@@ -12,13 +14,11 @@ class Add_product_view:
         self.files = None
         self.selected_files = ft.Text(color=ft.Colors.BLACK, max_lines=2, overflow=ft.TextOverflow.ELLIPSIS)
         self.product_name_field = ft.TextField(expand=True, label="Nome do produto", color=ft.Colors.BLACK, border_color=ft.Colors.BLACK, label_style=ft.TextStyle(color=ft.Colors.BLACK),)
+
+        self.file_picker = ft.FilePicker()
     pass
 
-    async def handle_save(self):
-        await self.save_product(self.product_name_field.value, self.files)
-    pass
-
-    async def save_product(self, name: str, files):
+    async def save_product(self, name: str, files : list[ft.FilePickerUploadFile]):
         self.vm.add_product(name, files)
 
         # Voltando para a tela admin
@@ -26,11 +26,25 @@ class Add_product_view:
     pass
 
     async def handle_pick_files(self, e: ft.Event[ft.Button]):
-        self.files = await ft.FilePicker().pick_files(allow_multiple=True)
+        self.files = await self.file_picker.pick_files(allow_multiple=True)
+        print(self.files, flush=True)
         self.selected_files.value = (
             ", ".join(map(lambda f: f.name, self.files)) if self.files else "Cancelled!"
         )
     pass
+
+    async def handle_file_upload(self, e: ft.Event[ft.Button]):
+        await self.file_picker.upload([
+            ft.FilePickerUploadFile(
+                    name=file.name,
+                    upload_url=self.page.get_upload_url(f"{file.name}", 60),
+                )
+                for file in self.files
+        ])
+
+        await asyncio.sleep(1)
+
+        await self.save_product(self.product_name_field.value, self.files)
 
     def get_app_data(self):
         return self.page.data
@@ -94,7 +108,7 @@ class Add_product_view:
                                             bgcolor=ft.Colors.GREEN,
                                             expand=True,
                                             icon=ft.Icons.ADD,
-                                            on_click=self.handle_save,
+                                            on_click=self.handle_file_upload,
                                         )
                                     ],
                                 ),

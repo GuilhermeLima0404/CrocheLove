@@ -1,34 +1,49 @@
 import shutil
 import os
+
 from models.app import App_data
 from services.database_manager import save_product
 
 class Add_product_viewmodel:
-    def __init__(self, app_data : App_data):
+    def __init__(self, app_data: App_data):
         self.app_data = app_data
-        pass
 
-    def add_product(self, name: str, files):
-
+    def add_product(self, name: str, files=None):
+        # Criar pasta do produto
         folder_path = f"src/assets/products_images/{name}_images"
         os.makedirs(folder_path, exist_ok=True)
 
-        if not files:
-            print("Nenhum arquivo recebido", flush=True)
-            return
+        upload_folder = "src/assets/uploads"
 
-        print(f"Recebido {len(files)} arquivos para o produto '{name}'", flush=True)
+        if files is not None:
+            for i, file in enumerate(files):
+                # Pega apenas o nome do arquivo
+                filename = os.path.basename(file.name)
 
-        for i, file in enumerate(files):
-            extension = os.path.splitext(file.name)[1]
+                source_path = os.path.join(upload_folder, filename)
 
-            new_name = f"image_{i+1}{extension}"
-            destination = os.path.join(folder_path, new_name)
+                destination_path = os.path.join(folder_path, filename)
 
-            print(f"Salvando: {file.name} -> {destination}", flush=True)
+                print(source_path)
+                print(destination_path)
 
-            shutil.copy(file.path, destination)
+                shutil.move(source_path, destination_path)
 
-        # Salvar o caminho da imagem no banco de dados
-        save_product(name=name, path=folder_path, route=f"/{name}", app=self.app_data)
-pass
+                print(
+                    f"Arquivo {source_path} movido para {destination_path}",
+                    flush=True
+                )
+
+                # Renomeando 
+                extension = os.path.splitext(file.name)[1]
+                new_name = f"image_{i+1}{extension}"
+                os.rename(destination_path, os.path.join(folder_path, new_name))
+        else:   
+            print("Nenhum arquivo selecionado para upload.")
+
+        save_product(
+            name=name,
+            path=f"products_images/{name}_images",
+            route=f"/{name}",
+            app=self.app_data
+        )

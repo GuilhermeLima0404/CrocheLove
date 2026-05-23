@@ -81,4 +81,4 @@ def main(page: ft.Page):
     route_change()
 
 if __name__ == "__main__":
-    ft.run(main, assets_dir="assets", upload_dir="assets/products_images/")
+    ft.run(main, assets_dir="assets", upload_dir="assets/uploads")
