@@ -1,12 +1,10 @@
 {
-    "dict_products_path": {
-        "Tapete": "products_images/Tapete_images"
-    },
+    "dict_products_path": {},
     "dict_routes": {
         "Home_view": "/",
         "Admin_view": "/admin",
         "Add_product_view": "/add_product",
-        "Bolsa": "/Bolsa",
-        "Tapete": "/Tapete"
-    }
+        "Bolsa": "/Bolsa"
+    },
+    "dict_num_products_images": {}
 }

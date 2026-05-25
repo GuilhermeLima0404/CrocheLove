@@ -4,14 +4,16 @@ from models.app import App_data
 import json
 
 # SAVE
-def save_product(name : str, path : str, route:str, app : App_data):
+def save_product(name : str, num_images : int, path : str, route:str, app : App_data):
     app.dict_products_path[name] = path
     app.dict_routes[name] = route
+    app.dict_num_products_images[name] = num_images
 
     # Salvar o dicionário atualizado no arquivo "database.json", usando JSON
     data = {
         "dict_products_path": app.dict_products_path,
-        "dict_routes": app.dict_routes
+        "dict_routes": app.dict_routes,
+        "dict_num_products_images": app.dict_num_products_images
     }
 
     try:
@@ -41,10 +43,11 @@ def get_app_data():
         app_data = App_data()
         app_data.dict_products_path = data.get("dict_products_path", {})
         app_data.dict_routes = data.get("dict_routes", {})
+        app_data.dict_num_products_images = data.get("dict_num_products_images", {})
 
         print(app_data.dict_products_path)
         print(app_data.dict_routes)
-
+        print(app_data.dict_num_products_images)
         print("App data loaded successfully.")
 
         return app_data
@@ -72,10 +75,15 @@ def delete_product(name : str, app : App_data):
     if name in app.dict_routes:
         del app.dict_routes[name]
 
+    # Remover o número de imagens do produto do dicionário
+    if name in app.dict_num_products_images:
+        del app.dict_num_products_images[name]
+        
     # Salvar as alterações no arquivo "database.json"
     data = {
         "dict_products_path": app.dict_products_path,
-        "dict_routes": app.dict_routes
+        "dict_routes": app.dict_routes,
+        "dict_num_products_images": app.dict_num_products_images
     }
 
     try:

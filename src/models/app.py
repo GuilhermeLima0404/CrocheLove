@@ -5,6 +5,9 @@ class App_data:
         self.dict_products_path = {
 
         }
+        self.dict_num_products_images = {
+
+        }
         self.dict_routes = {
             "Home_view": "/",
             "Admin_view": "/admin",

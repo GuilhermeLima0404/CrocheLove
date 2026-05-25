@@ -43,6 +43,7 @@ class Add_product_viewmodel:
 
         save_product(
             name=name,
+            num_images=len(files),
             path=f"products_images/{name}_images",
             route=f"/{name}",
             app=self.app_data
@@ -73,6 +74,7 @@ class Add_product_viewmodel:
         # Salvar as informações do produto no banco de dados
         save_product(
             name=name,
+            num_images=len(files),
             path=f"products_images/{name}_images",
             route=f"/{name}",
             app=self.app_data

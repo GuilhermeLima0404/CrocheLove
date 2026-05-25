@@ -9,9 +9,13 @@ class Product:
         self.delete_callback = delete_callback
         pass
     
-    async def handle_delete(self):
+    async def handle_delete(self, e):
         if self.delete_callback and self.adm_mode:
             await self.delete_callback(self.name)
+
+    async def product_details(self, e):
+        print(f"Produto clicado: {self.name}")
+        await self.page.push_route(f"/Produto/{self.name}")
 
     def build(self):
         return ft.Stack(
@@ -22,6 +26,7 @@ class Product:
                 ft.Container(
                     height=300,
                     width=300,
+                    on_click=self.product_details,
                     bgcolor="#8c53b3",
                     border_radius=10,
                     shadow=ft.BoxShadow(
@@ -72,7 +77,7 @@ class Product:
                         on_click=self.handle_delete,
                         hover_color=ft.Colors.RED_300,
                     ),
-                ) if self.adm_mode else ft.Container(),
+                ) if self.adm_mode else ft.Container(on_click=self.product_details),
             ],
         )
     pass
