@@ -18,8 +18,11 @@ class Add_product_view:
         self.file_picker = ft.FilePicker()
     pass
 
-    async def save_product(self, name: str, files : list[ft.FilePickerUploadFile]):
-        self.vm.add_product(name, files)
+    async def save_product(self, name: str, files : list[ft.FilePickerUploadFile], web_mode=False):
+        if web_mode:
+            self.vm.add_product_web(name, files)
+        else:
+            self.vm.add_product_desktop(name, files)
 
         # Voltando para a tela admin
         await self.page.push_route(ADMIN)
@@ -34,17 +37,19 @@ class Add_product_view:
     pass
 
     async def handle_file_upload(self, e: ft.Event[ft.Button]):
-        await self.file_picker.upload([
-            ft.FilePickerUploadFile(
-                    name=file.name,
-                    upload_url=self.page.get_upload_url(f"{file.name}", 60),
-                )
-                for file in self.files
-        ])
+        if self.page.web:
+            await self.file_picker.upload([
+                ft.FilePickerUploadFile(
+                        name=file.name,
+                        upload_url=self.page.get_upload_url(f"{file.name}", 60),
+                    )
+                    for file in self.files
+            ])
 
-        await asyncio.sleep(1)
+            await asyncio.sleep(1)
 
-        await self.save_product(self.product_name_field.value, self.files)
+        await self.save_product(self.product_name_field.value, self.files, self.page.web)
+    pass
 
     def get_app_data(self):
         return self.page.data
