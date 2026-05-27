@@ -34,6 +34,9 @@ def get_product_image_path(name : str, app : App_data):
 def get_product_route(name : str, app : App_data):
     return app.dict_routes.get(name)
 
+def get_prouct_name_list(app : App_data):
+    return list(app.dict_routes.keys())
+
 def get_app_data():
     # Ler o arquivo "database.json" e retornar os dicionários de produtos e rotas
     try:

@@ -2,7 +2,7 @@ import shutil
 import os
 
 from models.app import App_data
-from services.database_manager import save_product
+from services.database_manager import get_prouct_name_list, save_product
 
 class Add_product_viewmodel:
     def __init__(self, app_data: App_data):
@@ -79,4 +79,7 @@ class Add_product_viewmodel:
             route=f"/{name}",
             app=self.app_data
         )
+
+    def get_product_names(self):
+        return get_prouct_name_list(self.app_data)
 pass

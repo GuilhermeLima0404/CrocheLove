@@ -6,8 +6,7 @@
         "Home_view": "/",
         "Admin_view": "/admin",
         "Add_product_view": "/add_product",
-        "Pano de prato": "/Pano de prato",
-        "Bolsa": "/Bolsa"
+        "Pano de prato": "/Pano de prato"
     },
     "dict_num_products_images": {
         "Pano de prato": 3

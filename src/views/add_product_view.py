@@ -44,6 +44,18 @@ class Add_product_view:
     pass
 
     async def handle_file_upload(self, e: ft.Event[ft.Button]):
+        if self.product_name_field.value.strip() == "":
+            self.page.show_dialog(ft.SnackBar(content=ft.Text("Por favor, insira um nome para o produto!")))
+            return
+
+        if self.product_name_field.value in self.vm.get_product_names():
+            self.page.show_dialog(ft.SnackBar(content=ft.Text("Já existe um produto com esse nome!")))
+            return
+
+        if not self.files:
+            self.page.show_dialog(ft.SnackBar(content=ft.Text("Por favor, selecione pelo menos uma imagem para o produto!")))
+            return
+        
         if self.page.web:
             await self.file_picker.upload([
                 ft.FilePickerUploadFile(
