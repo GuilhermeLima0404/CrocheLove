@@ -66,8 +66,6 @@ def main(page: ft.Page):
             )
         ),
 
-        
-
         # Tema principal
         color_scheme=ft.ColorScheme(
             secondary=ft.Colors.WHITE,

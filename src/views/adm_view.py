@@ -26,7 +26,7 @@ class Adm_view:
         return ft.View(
             route=ADMIN,
             scroll=ft.ScrollMode.AUTO,
-            bgcolor=ft.Colors.WHITE,
+            bgcolor="#fefae0",
             appbar=ft.AppBar(
                 title=ft.Stack(
                     height=60,

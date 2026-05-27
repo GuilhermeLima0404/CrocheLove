@@ -1,14 +1,17 @@
 {
     "dict_products_path": {
-        "Pano de prato": "products_images/Pano de prato_images"
+        "Pano de prato": "products_images/Pano de prato_images",
+        "Bolsa": "products_images/Bolsa_images"
     },
     "dict_routes": {
         "Home_view": "/",
         "Admin_view": "/admin",
         "Add_product_view": "/add_product",
-        "Pano de prato": "/Pano de prato"
+        "Pano de prato": "/Pano de prato",
+        "Bolsa": "/Bolsa"
     },
     "dict_num_products_images": {
-        "Pano de prato": 3
+        "Pano de prato": 3,
+        "Bolsa": 2
     }
 }

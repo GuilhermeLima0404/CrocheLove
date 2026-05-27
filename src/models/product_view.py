@@ -62,7 +62,7 @@ class Product_view:
         )
 
         self.number_text = ft.TextField(
-            value="+55 51 8150-2727",
+            value="51 8150-2727",
             read_only=True,
             text_align=ft.TextAlign.CENTER,
             text_size=20,
@@ -119,7 +119,7 @@ class Product_view:
         return ft.View(
             route= f"/Produto/{self.name}",
             scroll=ft.ScrollMode.AUTO,
-            bgcolor=ft.Colors.WHITE,
+            bgcolor="#fefae0",
             appbar=ft.AppBar(
                 title=ft.Stack(
                     height=60,

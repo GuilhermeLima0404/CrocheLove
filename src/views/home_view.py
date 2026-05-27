@@ -57,7 +57,7 @@ class Home_view:
         return ft.View(
             route=HOME,
             scroll=ft.ScrollMode.ALWAYS,
-            bgcolor=ft.Colors.WHITE,
+            bgcolor="#fefae0",
             spacing=20,
             appbar=ft.AppBar(
                 title=ft.Stack(
@@ -135,8 +135,8 @@ class Home_view:
                 ft.GridView(
                     expand=True,
                     max_extent=300,  # tamanho de cada card
-                    spacing=10,
-                    run_spacing=10,
+                    spacing=30,
+                    run_spacing=30,
                     controls=[
                         Product(self.page, name, path, adm_mode=False).build()
                         for name, path in self.page.data.dict_products_path.items()
