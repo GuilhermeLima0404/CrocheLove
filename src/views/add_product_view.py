@@ -12,8 +12,15 @@ class Add_product_view:
 
         # Widgets
         self.files = None
-        self.selected_files = ft.Text(color=ft.Colors.BLACK, max_lines=2, overflow=ft.TextOverflow.ELLIPSIS)
-        self.product_name_field = ft.TextField(expand=True, label="Nome do produto", color=ft.Colors.BLACK, border_color=ft.Colors.BLACK, label_style=ft.TextStyle(color=ft.Colors.BLACK),)
+        self.selected_files = ft.Text(
+            color=ft.Colors.WHITE, 
+            max_lines=2, 
+            overflow=ft.TextOverflow.ELLIPSIS
+        )
+        self.product_name_field = ft.TextField(
+            expand=True, 
+            label="Nome do produto", 
+        )
 
         self.file_picker = ft.FilePicker()
     pass
@@ -32,7 +39,7 @@ class Add_product_view:
         self.files = await self.file_picker.pick_files(allow_multiple=True)
         print(self.files, flush=True)
         self.selected_files.value = (
-            ", ".join(map(lambda f: f.name, self.files)) if self.files else "Cancelled!"
+            ", ".join(map(lambda f: f.name, self.files)) if self.files else "Carregamento cancelado!"
         )
     pass
 
@@ -60,23 +67,26 @@ class Add_product_view:
             scroll=ft.ScrollMode.AUTO,
             bgcolor=ft.Colors.WHITE,
             appbar=ft.AppBar(
-                bgcolor="#4cc9f0",
-                elevation=0,
-                title=ft.Row(
-                    expand=True,
-                    alignment=ft.MainAxisAlignment.SPACE_AROUND,
+                title=ft.Stack(
+                    height=60,
                     controls=[
-                        ft.Image(
-                            align=ft.Alignment.CENTER_LEFT,
-                            src="crochelovelogo_horiz.png",
-                            height=50,
-                            fit=ft.BoxFit.CONTAIN,
+                        ft.Container(
+                            alignment=ft.Alignment.CENTER_LEFT,
+                            content=ft.Image(
+                                src="crochelovelogo_horiz.png",
+                                height=50,
+                                fit=ft.BoxFit.CONTAIN,
+                            ),
                         ),
-                        ft.Text(
-                            value="Adicionar novo produto",
-                            text_align=ft.Alignment.CENTER_RIGHT,
-                            size=40,
-                            color=ft.Colors.BLACK,
+
+                        ft.Container(
+                            alignment=ft.Alignment.CENTER,
+                            content=ft.Text(
+                                value="Adicionar novo produto, carrege imagens sempre no formato (.png)",
+                                font_family="Montserrat",
+                                size=30,
+                                color=ft.Colors.BLACK,
+                            ),
                         ),
                     ],
                 ),
@@ -86,9 +96,9 @@ class Add_product_view:
                     expand=True,
                     alignment=ft.Alignment.CENTER,
                     content=ft.Container(
-                        width=600,
-                        height=800,
-                        bgcolor="#4cc9f0",
+                        width=400,
+                        height=600,
+                        bgcolor=self.page.theme.color_scheme.surface,
                         border_radius=10,
                         shadow=ft.BoxShadow(
                             blur_radius=25,
@@ -100,20 +110,35 @@ class Add_product_view:
                             alignment=ft.MainAxisAlignment.CENTER,
                             controls=[
                                 self.product_name_field,                # Campo de nome do produto
-                                ft.ElevatedButton(                      # Botão para escolher arquivos
-                                    "Pick files",
-                                    icon=ft.Icons.UPLOAD_FILE,
-                                    on_click=self.handle_pick_files,
+                                ft.Container(
+                                    alignment=ft.Alignment.CENTER,
+                                    content=ft.ElevatedButton(                      # Botão para escolher arquivos
+                                        width=200,
+                                        on_click=self.handle_pick_files,
+                                        content=ft.Row(
+                                            alignment=ft.MainAxisAlignment.CENTER,
+                                            controls=[
+                                                ft.Text("Carregar fotos", color=ft.Colors.WHITE),
+                                                ft.Icon(ft.Icons.UPLOAD, size=20, color=ft.Colors.WHITE),
+                                            ]
+                                        ),
+                                    ),
                                 ),
                                 self.selected_files,                    # Texto para mostrar os arquivos selecionados
                                 ft.Row(                 
                                     alignment=ft.MainAxisAlignment.CENTER,
                                     controls=[
-                                        ft.IconButton(                  # Botão para salvar o produto
+                                        ft.ElevatedButton(                  # Botão para salvar o produto
                                             bgcolor=ft.Colors.GREEN,
                                             expand=True,
-                                            icon=ft.Icons.ADD,
                                             on_click=self.handle_file_upload,
+                                            content=ft.Row(
+                                                alignment=ft.MainAxisAlignment.CENTER,
+                                                controls=[
+                                                    ft.Text("Salvar produto", color=ft.Colors.WHITE),
+                                                    ft.Icon(ft.Icons.CHECK, size=20, color=ft.Colors.WHITE),
+                                                ]
+                                            ),
                                         )
                                     ],
                                 ),

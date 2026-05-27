@@ -35,12 +35,47 @@ def main(page: ft.Page):
     # Registrando o nome da fonte
     page.fonts = {
         "Tangerine": "fonts/Tangerine-Regular.ttf",
+        "Tangerine-Bold": "fonts/Tangerine-Bold.ttf",
         "Montserrat": "fonts/Montserrat-Regular.ttf",
     }
 
     # Configurando o thema da aplicação
     page.theme = ft.Theme(
-        font_family="Montserrat"
+        # Appbar
+        appbar_theme=ft.AppBarTheme(
+            bgcolor="#a98467",
+            elevation=0,
+            center_title=True,
+        ),
+
+        # Botoes
+        button_theme=ft.ButtonTheme(
+            style=ft.ButtonStyle(
+                bgcolor="#a98467",#"#ADC178",
+                color=ft.Colors.BLACK,
+                shadow_color=ft.Colors.BLACK,
+            )
+        ),
+
+        # SnackBar
+        snackbar_theme=ft.SnackBarTheme(
+            bgcolor="#a98467",
+            content_text_style=ft.TextStyle(
+                color=ft.Colors.BLACK,
+                font_family="Montserrat",
+            )
+        ),
+
+        
+
+        # Tema principal
+        color_scheme=ft.ColorScheme(
+            secondary=ft.Colors.WHITE,
+            primary="#a98467",
+            primary_container="#6D1A36",
+            secondary_container="#ffa5ab",
+            surface="#a53860",
+        )
     )
 
     # Lendo as infos do app

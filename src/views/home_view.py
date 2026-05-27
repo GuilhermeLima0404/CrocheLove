@@ -56,11 +56,10 @@ class Home_view:
     def build(self):
         return ft.View(
             route=HOME,
-            scroll=ft.ScrollMode.AUTO,
+            scroll=ft.ScrollMode.ALWAYS,
             bgcolor=ft.Colors.WHITE,
+            spacing=20,
             appbar=ft.AppBar(
-                bgcolor="#4cc9f0",
-                elevation=0,
                 title=ft.Stack(
                     height=60,
                     controls=[
@@ -76,8 +75,6 @@ class Home_view:
                         ft.Container(
                             alignment=ft.Alignment.CENTER_RIGHT,
                             content=ft.ElevatedButton(
-                                bgcolor=ft.Colors.WHITE,
-                                color="#8c53b3",
                                 width=150,
                                 style=ft.ButtonStyle(
                                     shape=ft.RoundedRectangleBorder(radius=5),
@@ -87,7 +84,6 @@ class Home_view:
                                     controls=[
                                         ft.Text(
                                             value="Adiministrador",
-                                            color=ft.Colors.BLACK,
                                             font_family="Montserrat",
                                         ),
                                     ]
@@ -99,7 +95,43 @@ class Home_view:
                 ),
             ),
             controls=[
-                
+                ft.Container(
+                    alignment=ft.Alignment.CENTER,
+                    border=ft.Border(
+                        bottom=ft.BorderSide(
+                            color=self.page.theme.color_scheme.primary_container,
+                            width=2,
+                        )
+                    ),
+                    padding=50,
+                    content=ft.Image(
+                        src="crochelovelogo.png",
+                        fit=ft.BoxFit.COVER,
+                    ),
+                ),
+                ft.Container(
+                    alignment=ft.Alignment.CENTER,
+                    border_radius=10,
+                    padding=20,
+                    #bgcolor=self.page.theme.color_scheme.secondary_container,
+                    gradient=ft.LinearGradient(
+                        begin=ft.Alignment(-1, -1),  # canto superior esquerdo
+                        end=ft.Alignment(1, 1),      # canto inferior direito
+                        colors=[
+                            self.page.theme.color_scheme.surface,
+                            self.page.theme.color_scheme.secondary_container,
+                            self.page.theme.color_scheme.surface,
+                        ],
+                        stops=[0.0, 0.5, 1.0],  # Define onde cada cor começa e termina
+                    ),
+                    content=ft.Text(
+                        value="Bem-vindo à Crochê Love! Explore nossos produtos e encontre o presente perfeito para quem você ama 🩷",
+                        text_align=ft.TextAlign.CENTER,
+                        font_family="Montserrat",
+                        size=30,
+                        color=ft.Colors.BLACK,
+                    ),
+                ),
                 ft.GridView(
                     expand=True,
                     max_extent=300,  # tamanho de cada card

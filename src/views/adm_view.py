@@ -28,26 +28,29 @@ class Adm_view:
             scroll=ft.ScrollMode.AUTO,
             bgcolor=ft.Colors.WHITE,
             appbar=ft.AppBar(
-                bgcolor="#4cc9f0",
-                elevation=0,
-                title=ft.Row(
-                    expand=True,
-                    alignment=ft.MainAxisAlignment.SPACE_AROUND,
+                title=ft.Stack(
+                    height=60,
                     controls=[
-                        ft.Image(
-                            align=ft.Alignment.CENTER_LEFT,
-                            src="crochelovelogo_horiz.png",
-                            height=50,  
-                            fit=ft.BoxFit.CONTAIN,
-                        ),                        
-                        ft.Text(
-                            value="Área do administrador",
-                            text_align=ft.Alignment.CENTER_RIGHT,
-                            size=40,
-                            color=ft.Colors.BLACK,
+                        ft.Container(
+                            alignment=ft.Alignment.CENTER_LEFT,
+                            content=ft.Image(
+                                src="crochelovelogo_horiz.png",
+                                height=50,
+                                fit=ft.BoxFit.CONTAIN,
+                            ),
+                        ),
+
+                        ft.Container(
+                            alignment=ft.Alignment.CENTER,
+                            content=ft.Text(
+                                value="Área do Administrador, salve novos produtos e gerencie os existentes.",
+                                font_family="Montserrat",
+                                size=30,
+                                color=ft.Colors.BLACK,
+                            ),
                         ),
                     ],
-                )
+                ),
             ),
             controls=[
                 ft.GridView(
@@ -66,7 +69,7 @@ class Adm_view:
                         ft.Container(
                             height=300,
                             width=300,
-                            bgcolor="#8c53b3",
+                            bgcolor=self.page.theme.color_scheme.primary_container,
                             border_radius=10,
                             shadow=ft.BoxShadow(
                                 blur_radius=25,
@@ -75,6 +78,7 @@ class Adm_view:
                             ),
                             content=ft.IconButton(
                                 icon=ft.Icons.ADD,
+                                icon_size=50,
                                 on_click=self.go_to_add_product,
                             )
                         ),

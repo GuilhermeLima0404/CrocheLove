@@ -43,8 +43,6 @@ class Product_view:
         )
 
         self.copy_button = ft.ElevatedButton(
-            bgcolor=ft.Colors.WHITE,
-            color="#8c53b3",
             style=ft.ButtonStyle(
                 shape=ft.RoundedRectangleBorder(radius=5),
             ),
@@ -76,7 +74,7 @@ class Product_view:
     # Arrows functions
     def on_hover_arrow(self, e : ft.HoverEvent):
         if e.data == True:
-            e.control.icon_color = "#8c53b3"
+            e.control.icon_color = self.page.theme.color_scheme.secondary
         else:
             e.control.icon_color = ft.Colors.WHITE
         e.control.update()
@@ -123,8 +121,6 @@ class Product_view:
             scroll=ft.ScrollMode.AUTO,
             bgcolor=ft.Colors.WHITE,
             appbar=ft.AppBar(
-                bgcolor="#4cc9f0",
-                elevation=0,
                 title=ft.Stack(
                     height=60,
                     controls=[
@@ -136,12 +132,11 @@ class Product_view:
                                 fit=ft.BoxFit.CONTAIN,
                             ),
                         ),
-
                         ft.Container(
                             alignment=ft.Alignment.CENTER,
                             content=ft.Text(
                                 value=self.name,
-                                font_family="Tangerine",
+                                font_family="Tangerine-Bold",
                                 color=ft.Colors.BLACK,
                                 size=50,
                             ),
@@ -159,7 +154,15 @@ class Product_view:
                             width=400,
                             height=600,
                             border_radius=10,
-                            bgcolor="#8c53b3",
+                            #bgcolor=self.page.theme.color_scheme.surface,
+                            gradient=ft.LinearGradient(
+                                begin=ft.Alignment(-1, -1),  # canto superior esquerdo
+                                end=ft.Alignment(1, 1),      # canto inferior direito
+                                colors=[
+                                    self.page.theme.color_scheme.secondary_container,
+                                    self.page.theme.color_scheme.primary_container,
+                                ],
+                            ),
                             alignment=ft.Alignment.CENTER,
                             shadow=ft.BoxShadow(
                                 blur_radius=25,

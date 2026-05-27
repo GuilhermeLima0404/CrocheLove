@@ -17,6 +17,32 @@ class Product:
         print(f"Produto clicado: {self.name}")
         await self.page.push_route(f"/Produto/{self.name}")
 
+    # Animações
+    def hover_animation(self, e : ft.HoverEvent):
+        if e.data == True:
+            # Mouse entrou
+            e.control.offset = ft.Offset(0, -0.03)
+            e.control.scale = 1.03
+
+            e.control.shadow = ft.BoxShadow(
+                blur_radius=40,
+                color=ft.Colors.BLACK_45,
+                offset=ft.Offset(0, 15),
+            )
+
+        else:
+            # Mouse saiu
+            e.control.offset = ft.Offset(0, 0)
+            e.control.scale = 1
+
+            e.control.shadow = ft.BoxShadow(
+                blur_radius=25,
+                color=ft.Colors.BLACK_38,
+                offset=ft.Offset(0, 8),
+            )
+
+        e.control.update()
+
     def build(self):
         return ft.Stack(
             width=300,
@@ -26,9 +52,15 @@ class Product:
                 ft.Container(
                     height=300,
                     width=300,
-                    on_click=self.product_details,
-                    bgcolor="#8c53b3",
                     border_radius=10,
+
+                    on_click=self.product_details,
+                    on_hover=self.hover_animation,
+
+                    animate_offset=300,
+                    animate_scale=300,
+
+                    bgcolor=self.page.theme.color_scheme.primary_container,
                     shadow=ft.BoxShadow(
                         blur_radius=25,
                         color=ft.Colors.BLACK_38,
@@ -53,7 +85,7 @@ class Product:
                                 controls=[
                                     ft.Text(
                                         value=self.name,
-                                        font_family="Tangerine",
+                                        font_family="Tangerine-Bold",
                                         width=200,
                                         max_lines=1,
                                         overflow=ft.TextOverflow.ELLIPSIS,
@@ -65,20 +97,22 @@ class Product:
                         ],
                     ),
                 ),
-
-                # Botão deletar produto (apenas em modo admin)
-                ft.Container(
-                    top=5,
-                    right=5,
-                    content=ft.IconButton(
-                        icon=ft.Icons.CLOSE,
-                        icon_color=ft.Colors.WHITE,
-                        bgcolor=ft.Colors.RED,
-                        on_click=self.handle_delete,
-                        hover_color=ft.Colors.RED_300,
-                    ),
-                ) if self.adm_mode else ft.Container(on_click=self.product_details),
-            ],
+            ] 
+            + # Botão deletar produto (apenas em modo admin)
+            (
+                [
+                    ft.Container(
+                        top=5,
+                        right=5,
+                        content=ft.IconButton(
+                            icon=ft.Icons.CLOSE,
+                            icon_color=ft.Colors.WHITE,
+                            bgcolor=ft.Colors.RED,
+                            on_click=self.handle_delete,
+                        ),
+                    )
+                ] if self.adm_mode else []
+            )
         )
     pass
 pass
