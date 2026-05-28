@@ -104,8 +104,8 @@ class Product_view:
             image_list.append(ft.Image(
                 src=path,
                 fit=ft.BoxFit.COVER,
-                width=400,
-                height=400,
+                aspect_ratio=1,
+                width=400 if self.page.width >= 400 else (self.page.width - 20),
             ))
 
         return image_list
@@ -146,94 +146,72 @@ class Product_view:
             ),
             controls=[
                 ft.Row(
-                    expand=True,
                     alignment=ft.MainAxisAlignment.CENTER,
-                    vertical_alignment=ft.CrossAxisAlignment.CENTER,
                     controls=[
                         ft.Container(
-                            width=400,
-                            height=600,
                             border_radius=10,
-                            #bgcolor=self.page.theme.color_scheme.surface,
+                            alignment=ft.Alignment.CENTER,
+                            padding=ft.Padding(bottom=20),
                             gradient=ft.LinearGradient(
-                                begin=ft.Alignment(-1, -1),  # canto superior esquerdo
-                                end=ft.Alignment(1, 1),      # canto inferior direito
+                                begin=ft.Alignment(-1, -1),
+                                end=ft.Alignment(1, 1),
                                 colors=[
                                     self.page.theme.color_scheme.secondary_container,
                                     self.page.theme.color_scheme.primary_container,
                                 ],
                             ),
-                            alignment=ft.Alignment.CENTER,
                             shadow=ft.BoxShadow(
                                 blur_radius=25,
                                 color=ft.Colors.BLACK_38,
                                 offset=ft.Offset(0, 8),
                             ),
                             content=ft.Column(
+                                tight=True,  # <- faz a coluna ocupar só o necessário
+                                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                                 controls=[
-                                    ft.Row(
-                                        alignment=ft.MainAxisAlignment.CENTER,
-                                        vertical_alignment=ft.CrossAxisAlignment.START,
-                                        expand=True,
+                                    ft.Stack(
+                                        width=self.images_list[self.current_image_index].width,
                                         controls=[
-                                            ft.Stack(
-                                                width=400,
-                                                height=400,
+                                            self.switcher,
+                                            ft.Row(
+                                                alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
+                                                vertical_alignment=ft.CrossAxisAlignment.END,
                                                 controls=[
-                                                    self.switcher,
-                                                    ft.Container(
-                                                        bottom=0,
-                                                        width=400,
-                                                        content=ft.Row(
-                                                            alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
-                                                            controls=[
-                                                                self.left_arrow,
-                                                                self.right_arrow,
-                                                            ],
-                                                        ),
-                                                    ),
-                                                ]
+                                                    self.left_arrow,
+                                                    self.right_arrow,
+                                                ],
                                             ),
-                                        ],
+                                        ]
                                     ),
-        
+
                                     ft.Row(
-                                        alignment=ft.MainAxisAlignment.CENTER,
-                                        vertical_alignment=ft.CrossAxisAlignment.START,
                                         controls=[
                                             ft.Text(
                                                 value="Encomende através do \nnosso WhatsApp!",
-                                                size=30,
+                                                size=30 if self.page.width >= 400 else 20,
                                                 font_family="Montserrat",
                                                 text_align=ft.TextAlign.CENTER,
                                                 color=ft.Colors.WHITE,
                                             ),
                                         ],
                                     ),
-        
+
                                     ft.Row(
-                                        alignment=ft.MainAxisAlignment.CENTER,
-                                        vertical_alignment=ft.CrossAxisAlignment.START,
                                         controls=[
                                             self.number_text,
                                         ]
                                     ),
-        
+
                                     ft.Row(
-                                        alignment=ft.MainAxisAlignment.CENTER,
-                                        vertical_alignment=ft.CrossAxisAlignment.START,
-                                        margin=ft.Margin(0, 0, 0, 20),
                                         controls=[
                                             self.copy_button,
                                         ]
                                     )
                                 ]
                             ),
-                        ),
+                        )
                     ]
                 ),
             ]
         )
-        
-        
 pass

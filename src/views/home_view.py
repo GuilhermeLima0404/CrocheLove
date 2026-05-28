@@ -128,13 +128,14 @@ class Home_view:
                         value="Bem-vindo à Crochê Love! Explore nossos produtos e encontre o presente perfeito para quem você ama 🩷",
                         text_align=ft.TextAlign.CENTER,
                         font_family="Montserrat",
-                        size=30,
+                        size=30 if self.page.width >= 800 else 20,
                         color=ft.Colors.BLACK,
                     ),
                 ),
                 ft.GridView(
                     expand=True,
-                    max_extent=300,  # tamanho de cada card
+                    aspect_ratio=1,
+                    max_extent=220,  # tamanho de cada card
                     spacing=30,
                     run_spacing=30,
                     controls=[
