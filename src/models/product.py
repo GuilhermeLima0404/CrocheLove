@@ -45,13 +45,9 @@ class Product:
 
     def build(self):
         return ft.Stack(
-            width=300,
-            height=300,
             controls=[
                 # Card principal
                 ft.Container(
-                    height=300,
-                    width=300,
                     border_radius=10,
 
                     on_click=self.product_details,
@@ -67,29 +63,33 @@ class Product:
                         offset=ft.Offset(0, 8),
                     ),
                     content=ft.Column(
+                        #tight=True,
+                        horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                         controls=[
                             # Linha 1 - Imagem
-                            ft.Container(
-                                height=200,
-                                width=300,
-                                content=ft.Image(
-                                    src=f"{self.path}/image_1.png",
-                                    fit=ft.BoxFit.FIT_WIDTH,
-                                ),
+                            ft.Row(
+                                controls=[
+                                    ft.Container(
+                                        expand=True,
+                                        aspect_ratio=1.4,
+                                        content=ft.Image(
+                                            src=f"{self.path}/image_1.png",
+                                            fit=ft.BoxFit.COVER,
+                                        ),
+                                    ),
+                                ]
                             ),
 
                             # Linha 2 - Nome do produto
                             ft.Row(
                                 alignment=ft.MainAxisAlignment.CENTER,
-                                expand=True,
                                 controls=[
                                     ft.Text(
                                         value=self.name,
                                         font_family="Tangerine-Bold",
-                                        width=200,
                                         max_lines=1,
                                         overflow=ft.TextOverflow.ELLIPSIS,
-                                        size=40,
+                                        size=40 if self.page.width >= 800 else 20,
                                         text_align=ft.TextAlign.CENTER,
                                     ),
                                 ],
