@@ -125,14 +125,6 @@ class Product_view:
                     height=60,
                     controls=[
                         ft.Container(
-                            alignment=ft.Alignment.CENTER_LEFT,
-                            content=ft.Image(
-                                src="crochelovelogo_horiz.png",
-                                height=50,
-                                fit=ft.BoxFit.CONTAIN,
-                            ),
-                        ),
-                        ft.Container(
                             alignment=ft.Alignment.CENTER,
                             content=ft.Text(
                                 value=self.name,
