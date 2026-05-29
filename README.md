@@ -4,6 +4,22 @@
 
 ### uv
 
+Use Python version 3.12.2:
+
+```
+python --version
+```
+
+### uv
+
+Before run the app, set the environment variable to enable upload files in the web:
+
+```
+$env:FLET_SECRET_KEY="123456"
+```
+
+### uv
+
 Run as a desktop app:
 
 ```
