@@ -23,20 +23,20 @@ args = "Start application"
 name = "Start application"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "cd src && /home/runner/workspace/.pythonlibs/bin/flet run --web --host 0.0.0.0 --port 5000 -a assets main.py"
-waitForPort = 5000
-
 [workflows.workflow.metadata]
 outputType = "webview"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd src && FLET_SECRET_KEY=123456 /home/runner/workspace/.pythonlibs/bin/flet run --web --host 0.0.0.0 --port 5000 -a assets main.py"
+waitForPort = 5000
 
 [nix]
 channel = "stable-25_05"
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["bash", "-c", "cd src && /home/runner/workspace/.pythonlibs/bin/flet run --web --host 0.0.0.0 --port 5000 -a assets main.py"]
+run = ["bash", "-c", "cd src && FLET_SECRET_KEY=123456 /home/runner/workspace/.pythonlibs/bin/flet run --web --host 0.0.0.0 --port 5000 -a assets main.py"]
 
 [userenv]
 
