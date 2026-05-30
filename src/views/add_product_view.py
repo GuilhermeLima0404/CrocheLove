@@ -56,6 +56,12 @@ class Add_product_view:
             self.page.show_dialog(ft.SnackBar(content=ft.Text("Por favor, selecione pelo menos uma imagem para o produto!")))
             return
         
+        # Se não for no formato .jpeg
+        for files in self.files:
+            if not ".jpeg" in files.name:
+                self.page.show_dialog(ft.SnackBar(content=ft.Text("Por favor, selecione apenas arquivos no formato (.jpeg)!")))
+                return
+        
         if self.page.web:
             await self.file_picker.upload([
                 ft.FilePickerUploadFile(
@@ -83,20 +89,11 @@ class Add_product_view:
                     height=60,
                     controls=[
                         ft.Container(
-                            alignment=ft.Alignment.CENTER_LEFT,
-                            content=ft.Image(
-                                src="crochelovelogo_horiz.png",
-                                height=50,
-                                fit=ft.BoxFit.CONTAIN,
-                            ),
-                        ),
-
-                        ft.Container(
                             alignment=ft.Alignment.CENTER,
                             content=ft.Text(
-                                value="Adicionar novo produto, carrege imagens sempre no formato (.png)",
+                                value="Adicionar novo produto, carrege imagens sempre no formato (.jpeg)",
                                 font_family="Montserrat",
-                                size=30,
+                                size=30 if self.page.width >=400 else 15,
                                 color=ft.Colors.BLACK,
                             ),
                         ),

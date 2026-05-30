@@ -16,7 +16,7 @@ class Product_viewmodel:
         
         # Adicionando imagens da pasta do produto à lista de caminhos das imagens
         for i in range(num_images):
-            image_path = os.path.join(product_path, f"image_{i+1}.png")
+            image_path = os.path.join(product_path, f"image_{i+1}.jpeg")
             print(f"Lendo imagem: {image_path}")
 
             images_paths.append(image_path)

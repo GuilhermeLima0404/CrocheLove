@@ -3,7 +3,7 @@ import flet as ft
 
 # Importando as rotas #
 from routes.dict_routes import dict_routes
-from routes.routes import ADMIN, HOME, REFRESH
+from routes.routes import ADMIN, HOME
 
 # Importando as views #
 from models.product_view import Product_view
@@ -91,24 +91,18 @@ def main(page: ft.Page):
         page.views.append(view.build())
 
         # Adicionando a nova route
-        if page.route != HOME:
-            # Se a rota for REFRESH, atualiza os dados do app e redireciona para a página de admin que é a unica que precisa disso
-            if page.route == REFRESH:
+        if page.route != HOME:    
+            # Se for rota de detalhes do produto, adiciona a view de detalhes do produto
+            if page.route.startswith("/Produto/"):
                 page.data = get_app_data()
-                view = get_view(ADMIN, page)
+                product_name = page.route.split("/Produto/")[1]
+                vm = Product_viewmodel(page.data)
+                view = Product_view(name=product_name, path=page.data.dict_products_path.get(product_name, ""), page=page, vm=vm)
                 page.views.append(view.build())
             else:
-                # Se for rota de detalhes do produto, adiciona a view de detalhes do produto
-                if page.route.startswith("/Produto/"):
-                    page.data = get_app_data()
-                    product_name = page.route.split("/Produto/")[1]
-                    vm = Product_viewmodel(page.data)
-                    view = Product_view(name=product_name, path=page.data.dict_products_path.get(product_name, ""), page=page, vm=vm)
-                    page.views.append(view.build())
-                else:
-                    page.data = get_app_data()
-                    view = get_view(page.route, page)
-                    page.views.append(view.build())
+                page.data = get_app_data()
+                view = get_view(page.route, page)
+                page.views.append(view.build())
 
         page.update()
 

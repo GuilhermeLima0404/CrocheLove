@@ -1,5 +1,5 @@
 # Importando as rotas #
-from routes.routes import HOME, ADMIN, ADD_PRODUCT, REFRESH
+from routes.routes import HOME, ADMIN, ADD_PRODUCT
 
 # Importando os viewmodels #
 from viewmodels.home_viewmodel import Home_viewmodel

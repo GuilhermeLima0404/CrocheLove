@@ -45,6 +45,7 @@ class Product:
 
     def build(self):
         return ft.Stack(
+            data=self.name,
             controls=[
                 # Card principal
                 ft.Container(
@@ -73,7 +74,7 @@ class Product:
                                         expand=True,
                                         aspect_ratio=1.4,
                                         content=ft.Image(
-                                            src=f"{self.path}/image_1.png",
+                                            src=f"{self.path}/image_1.jpeg",
                                             fit=ft.BoxFit.COVER,
                                         ),
                                     ),
