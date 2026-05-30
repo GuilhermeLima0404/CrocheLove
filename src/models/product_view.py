@@ -62,7 +62,7 @@ class Product_view:
         )
 
         self.number_text = ft.TextField(
-            value="51 8150-2727",
+            value="51 98150-2727",
             read_only=True,
             text_align=ft.TextAlign.CENTER,
             text_size=20,
