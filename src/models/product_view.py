@@ -112,9 +112,13 @@ class Product_view:
 
     # Set to Clipboard
     async def set_to_clipboard(self, e):
-        await ft.Clipboard().set(self.number_text.value)
-        self.page.show_dialog(ft.SnackBar("Número copiado para a área de transferência!"))
-
+        try:
+            await ft.Clipboard().set(self.number_text.value)
+            self.page.show_dialog(ft.SnackBar("Número copiado para a área de transferência!"))
+        except Exception as e:
+            self.page.show_dialog(ft.SnackBar("Não foi possível copiar o número."))
+    pass
+    
     def build(self):
         return ft.View(
             route= f"/Produto/{self.name}",
