@@ -31,6 +31,7 @@ def main(page: ft.Page):
 
     # Configurando o diretório de assets para a pasta "assets"
     page.assets_dir = "assets"
+    page.upload_dir = "assets/uploads"
 
     # Registrando o nome da fonte
     page.fonts = {

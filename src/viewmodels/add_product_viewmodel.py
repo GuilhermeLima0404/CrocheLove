@@ -1,27 +1,25 @@
-import shutil
 import os
+import shutil
 
 from models.app import App_data
 from services.database_manager import get_prouct_name_list, save_product
+
+_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # src/
+_PRODUCTS_IMAGES_DIR = os.path.join(_BASE_DIR, "assets", "products_images")
+_UPLOAD_DIR = os.path.join(_BASE_DIR, "assets", "uploads")
 
 class Add_product_viewmodel:
     def __init__(self, app_data: App_data):
         self.app_data = app_data
 
     def add_product_web(self, name: str, files=None):
-        # Criar pasta do produto
-        folder_path = f"src/assets/products_images/{name}_images"
+        folder_path = os.path.join(_PRODUCTS_IMAGES_DIR, f"{name}_images")
         os.makedirs(folder_path, exist_ok=True)
-
-        upload_folder = "src/assets/uploads"
 
         if files is not None:
             for i, file in enumerate(files):
-                # Pega apenas o nome do arquivo
                 filename = os.path.basename(file.name)
-
-                source_path = os.path.join(upload_folder, filename)
-
+                source_path = os.path.join(_UPLOAD_DIR, filename)
                 destination_path = os.path.join(folder_path, filename)
 
                 print(source_path)
@@ -29,16 +27,12 @@ class Add_product_viewmodel:
 
                 shutil.move(source_path, destination_path)
 
-                print(
-                    f"Arquivo {source_path} movido para {destination_path}",
-                    flush=True
-                )
+                print(f"Arquivo {source_path} movido para {destination_path}", flush=True)
 
-                # Renomeando 
                 extension = os.path.splitext(file.name)[1]
                 new_name = f"image_{i+1}{extension}"
                 os.rename(destination_path, os.path.join(folder_path, new_name))
-        else:   
+        else:
             print("Nenhum arquivo selecionado para upload.")
 
         save_product(
@@ -48,11 +42,9 @@ class Add_product_viewmodel:
             route=f"/{name}",
             app=self.app_data
         )
-    pass
 
     def add_product_desktop(self, name: str, files):
-
-        folder_path = f"src/assets/products_images/{name}_images"
+        folder_path = os.path.join(_PRODUCTS_IMAGES_DIR, f"{name}_images")
         os.makedirs(folder_path, exist_ok=True)
 
         if not files:
@@ -63,7 +55,6 @@ class Add_product_viewmodel:
 
         for i, file in enumerate(files):
             extension = os.path.splitext(file.name)[1]
-
             new_name = f"image_{i+1}{extension}"
             destination = os.path.join(folder_path, new_name)
 
@@ -71,7 +62,6 @@ class Add_product_viewmodel:
 
             shutil.copy(file.path, destination)
 
-        # Salvar as informações do produto no banco de dados
         save_product(
             name=name,
             num_images=len(files),
@@ -82,4 +72,3 @@ class Add_product_viewmodel:
 
     def get_product_names(self):
         return get_prouct_name_list(self.app_data)
-pass
